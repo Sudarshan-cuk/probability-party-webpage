@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Sample Space and Outcomes: A Fun Journey</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f2f7 0%, #b3e0ed 100%); /* Softer blue gradient */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(45deg, #1a73e8 0%, #4285f4 100%); /* Google Blue-ish gradient */
+            color: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%); /* Purple-ish gradient */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInFromLeft 1s ease-out;
+            padding: 20px;
+        }
+        .cover-page h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive font size */
+            margin-bottom: 20px;
+            animation: bounceIn 1s ease-out;
+        }
+        .cover-page p {
+            font-size: clamp(1rem, 3vw, 1.5rem); /* Responsive font size */
+            margin-top: 10px;
+        }
+        .section {
+            background-color: #fcfcfc; /* Slightly off-white */
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0; /* Subtle border */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+            animation: slideInFromRight 1s ease-out forwards; /* Added forwards to keep final state */
+            opacity: 0; /* Start invisible for animation */
+        }
+        .section h2 {
+            color: #1a73e8; /* Matching header blue */
+            font-size: clamp(1.8rem, 5vw, 2.2rem); /* Responsive font size */
+            margin-bottom: 20px;
+            border-bottom: 3px solid #673ab7; /* Matching cover purple */
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #673ab7; /* Matching cover purple */
+            font-size: clamp(1.5rem, 4vw, 1.8rem); /* Responsive font size */
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .fun-fact {
+            background-color: #e3f2fd; /* Lighter blue */
+            border-left: 5px solid #2196f3; /* Medium blue */
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #1976d2; /* Darker blue */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .interactive-box {
+            background-color: #f3e5f5; /* Light purple */
+            border: 2px dashed #9c27b0; /* Matching cover purple */
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .button-primary {
+            background: linear-gradient(45deg, #4285f4 0%, #1a73e8 100%); /* Blue gradient */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .button-primary:hover {
+            background: linear-gradient(45deg, #673ab7 0%, #9c27b0 100%); /* Purple gradient on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .image-container img {
+            max-width: 90%; /* Increased max-width for better visibility */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .image-container img:hover {
+            transform: scale(1.03);
+        }
+        .problem-section {
+            background-color: #fff8e1; /* Lighter orange-yellow */
+            border-left: 5px solid #ffb300; /* Orange */
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .problem-section h3 {
+            color: #f57f17; /* Darker orange */
+        }
+        .problem-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 10px;
+        }
+        .problem-section li {
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background-color: #2c3e50; /* Dark background for blackboard */
+            color: #ecf0f1; /* Chalk color */
+            font-family: 'Inter', sans-serif; /* Changed for readability */
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            text-align: left;
+            display: none; /* Hidden by default */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .solution-content p, .solution-content ol, .solution-content ul {
+            margin-bottom: 10px;
+            opacity: 1; /* Always visible now */
+            white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+            animation: none; /* No typing animation */
+            width: auto; /* Auto width */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        .fade-in-text {
+            animation: fadeIn 2s ease-in-out;
+        }
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #2575fc;
+            transition: width 0.3s ease;
+        }
+        .animated-underline:hover::after {
+            width: 100%;
+            left: 0;
+            background: #6a11cb;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position the tooltip above the text */
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .mcq-option label {
+            display: block;
+            margin-bottom: 8px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .mcq-option label:hover {
+            background-color: #f0f0f0;
+        }
+        .mcq-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .mcq-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 10px;
+            }
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .section {
+                padding: 20px;
+                margin-top: 20px;
+            }
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            .section h3 {
+                font-size: 1.3rem;
+            }
+            .cover-page h1 {
+                font-size: 2.5rem;
+            }
+            .cover-page p {
+                font-size: 1.2rem;
+            }
+            .image-container img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <h1 class="text-white font-extrabold text-center leading-tight">
+            The <span class="animated-underline">Probability</span> Party!
+        </h1>
+        <p class="text-white mt-4 text-center text-lg">
+            A Seminar Presentation for my Maths Seminar
+        </p>
+        <p class="text-white mt-8 text-xl">
+            Presented by <span class="font-bold text-yellow-300">Sudarshan Das</span>
+        </p>
+        <p class="text-white text-lg">
+            Roll No: 2301604023
+        </p>
+        <p class="text-white text-lg">
+            ITEP Physics Course, Department of Education
+        </p>
+        <p class="text-white text-lg">
+            Central University of Kerala
+        </p>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header mt-10">
+            <h1 class="font-extrabold mb-4 animate-pulse">Welcome to the Probability Playground!</h1>
+            <p class="text-xl">
+                Ever wondered what's going to happen next? Or what *could* happen next?
+                You're in the right place! We're about to dive into the super cool,
+                sometimes wacky, world of <span class="font-bold text-yellow-300">Sample Space</span> and <span class="font-bold text-yellow-300">Outcomes</span>!
+            </p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="section">
+            <h2><span class="animated-underline">What in the World is Probability?</span> 🤔</h2>
+            <p class="text-lg">
+                Imagine you're trying to guess if your friend will finally finish that
+                super long video game. Probability is like the super-smart fortune teller
+                who gives you a number for how likely that is! It's the mathematical
+                language we use to talk about <span class="font-bold">uncertainty</span>.
+                Instead of just saying "maybe," we can say "there's a 75% chance!"
+                Pretty neat, huh?
+            </p>
+            <div class="fun-fact">
+                <p><strong>Fun Fact:</strong> Did you know the concept of probability
+                    first popped up in the 17th century, all thanks to some mathematicians
+                    trying to figure out fair gambling strategies? So, yes, math can be
+                    a real game-changer (pun intended)!</p>
+            </div>
+            <p class="text-lg mt-4">
+                Probability helps us quantify risk, make informed decisions, and even predict trends.
+                From weather forecasts to medical diagnoses, it's everywhere!
+            </p>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/1a73e8/ffffff?text=Probability+Concepts" alt="Abstract illustration of probability concepts with numbers and question marks.">
+            </div>
+        </section>
+
+        <!-- Key Definitions Section -->
+        <section class="section">
+            <h2><span class="animated-underline">Key Definitions: Your Probability Dictionary!</span> 📚</h2>
+            <p class="text-lg">Before we go any further, let's make sure we're all speaking the same "probability language." Here are the essential terms you need to know:</p>
+
+            <h3 class="mt-6">The Experiment</h3>
+            <p class="text-lg">
+                In probability, an <strong>experiment</strong> is any process that leads to a well-defined outcome.
+                The key is that while the process can be repeated, the outcome of any single trial is uncertain.
+            </p>
+            <ul class="list-disc ml-8 mt-2 text-lg">
+                <li>Example: Flipping a coin, rolling a die, drawing a card.</li>
+            </ul>
+
+            <h3 class="mt-6">The Outcome</h3>
+            <p class="text-lg">
+                An <strong>outcome</strong> is the specific result of a single trial of an experiment. It's one of the possibilities that can occur.
+            </p>
+            <ul class="list-disc ml-8 mt-2 text-lg">
+                <li>Example: When flipping a coin, "Heads" is an outcome. When rolling a die, "3" is an outcome.</li>
+            </ul>
+
+            <h3 class="mt-6">The Sample Space (S or Ω)</h3>
+            <p class="text-lg">
+                The <strong>sample space</strong> is the complete set of all possible distinct outcomes of a random experiment. It must be:
+            </p>
+            <ul class="list-disc ml-8 mt-2 text-lg">
+                <li><strong>Exhaustive:</strong> Includes every conceivable outcome.</li>
+                <li><strong>Mutually Exclusive:</strong> No two outcomes can occur simultaneously in a single trial.</li>
+                <li>Example: For a single coin flip, S = {Heads, Tails}. For a die roll, S = {1, 2, 3, 4, 5, 6}.</li>
+            </ul>
+
+            <h3 class="mt-6">The Event</h3>
+            <p class="text-lg">
+                An <strong>event</strong> is a subset of the sample space. It's a collection of one or more outcomes.
+            </p>
+            <ul class="list-disc ml-8 mt-2 text-lg">
+                <li>Example: When rolling a die, the event "rolling an even number" is {2, 4, 6}. The event "rolling a 3" is {3}.</li>
+            </ul>
+
+            <h3 class="mt-6">Probability</h3>
+            <p class="text-lg">
+                <strong>Probability</strong> is a numerical measure of the likelihood that an event will occur. It is a value between 0 and 1 (or 0% and 100%).
+            </p>
+            <ul class="list-disc ml-8 mt-2 text-lg">
+                <li>0 means the event is impossible.</li>
+                <li>1 means the event is certain to occur.</li>
+                <li>Example: The probability of flipping a coin and getting Heads is 0.5 (or 50%).</li>
+            </ul>
+        </section>
+
+        <!-- Key Concepts: The Experiment -->
+        <section class="section">
+            <h2><span class="animated-underline">The Experiment: Not Your Science Class Kind!</span> 🧪</h2>
+            <p class="text-lg">
+                An "experiment" isn't always about bubbling beakers and crazy explosions (though those are fun too!). It's just any process where you don't *quite* know what's going to happen, but you know all the possible things that *could* happen.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>It's Repeatable:</strong> You can do it again and again (theoretically, please don't flip coins for 24 hours straight!).</li>
+                <li><strong>Outcome is Uncertain:</strong> You never know the exact result of a single try. That's the exciting part!</li>
+            </ul>
+            <p class="text-lg mt-4">
+                Think of it like this: when you flip a coin, you know it'll either be heads or tails, but you can't be 100% sure which one until it lands. This uncertainty is precisely what makes probability necessary and fascinating!
+            </p>
+            <div class="interactive-box">
+                <p class="text-xl font-semibold mb-4">Choose your experiment!</p>
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button id="showCoinFlip" class="button-primary">Coin Flip</button>
+                    <button id="showDiceRoll" class="button-primary">Dice Roll</button>
+                    <button id="showCardDraw" class="button-primary">Draw Card</button>
+                </div>
+
+                <!-- Coin Flip Section -->
+                <div id="coinFlipSection" class="experiment-sub-section">
+                    <p class="text-xl font-semibold mb-4">How many coins would you like to toss?</p>
+                    <input type="number" id="numCoins" class="border p-2 rounded w-24 text-center mb-4" value="1" min="1" max="10">
+                    <button id="flipCoinsButton" class="button-primary">Flip Coins!</button>
+                    <div id="coinFlipResults" class="mt-4 text-2xl font-bold text-purple-700 min-h-[50px]"></div>
+                    <p id="totalOutcome" class="mt-2 text-xl font-bold text-blue-700"></p>
+                </div>
+
+                <!-- Dice Roll Section -->
+                <div id="diceRollSection" class="experiment-sub-section hidden">
+                    <p class="text-xl font-semibold mb-4">How many dice would you like to roll?</p>
+                    <input type="number" id="numDice" class="border p-2 rounded w-24 text-center mb-4" value="1" min="1" max="5">
+                    <button id="rollDiceButton" class="button-primary">Roll Dice!</button>
+                    <div id="diceRollResults" class="mt-4 text-4xl min-h-[50px] flex justify-center items-center flex-wrap gap-4"></div>
+                    <p id="diceTotalSum" class="mt-2 text-xl font-bold text-blue-700"></p>
+                </div>
+
+                <!-- Card Draw Section -->
+                <div id="cardDrawSection" class="experiment-sub-section hidden">
+                    <p class="text-xl font-semibold mb-4">Draw a random card from a standard deck!</p>
+                    <button id="drawCardButton" class="button-primary">Draw Card!</button>
+                    <button id="resetDeckButton" class="button-primary ml-4">Reset Deck</button>
+                    <div id="drawnCardResult" class="mt-4 text-3xl font-bold text-green-700 min-h-[50px]"></div>
+                    <p id="remainingCards" class="mt-2 text-lg text-gray-600"></p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/9c27b0/ffffff?text=Experiment+In+Action" alt="An illustration of a hand initiating an experiment.">
+            </div>
+        </section>
+
+        <!-- Key Concepts: The Outcome -->
+        <section class="section">
+            <h2><span class="animated-underline">The Outcome: What Actually Happened?!</span> 🤯</h2>
+            <p class="text-lg">
+                So, you did your experiment. What did you get? That's your <span class="font-bold">outcome</span>! It's the specific, single result of your experiment. Think of it as the grand finale of your probabilistic adventure.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Coin Flip:</strong> Heads (H) or Tails (T)</li>
+                <li><strong>Die Roll:</b> 1, 2, 3, 4, 5, or 6 (hopefully not a 7, unless you have a very special die!)</li>
+                <li><strong>Drawing a Card:</b> Ace of Spades, King of Hearts, etc. (52 possibilities, no pressure!)</li>
+                <li><strong>Your Exam:</strong> Pass or Fail (let's hope for the former!)</li>
+            </ul>
+            <div class="fun-fact">
+                <p><strong>Funny Thought:</strong> If your outcome was "my dog ate my homework," that's a valid outcome... just maybe not one your teacher appreciates in the sample space of "exam results." 😉</p>
+            </div>
+            <p class="text-lg mt-4">
+                Each time you perform an experiment, you get one and only one outcome. It's like picking a single flavor from an ice cream shop – you can't pick all of them at once!
+            </p>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/2196f3/ffffff?text=Dice+Roll+Result" alt="Close-up of a single die showing the number 6.">
+            </div>
+        </section>
+
+        <!-- Key Concepts: Sample Space -->
+        <section class="section">
+            <h2><span class="animated-underline">Sample Space: The Universe of Possibilities!</span> 🌌</h2>
+            <p class="text-lg">
+                Now, if an outcome is what *did* happen, the <span class="font-bold">sample space</span> is everything that *could* have happened! It's the complete collection of all possible, distinct outcomes of an experiment. It's like the ultimate "menu" of results.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>It's Exhaustive:</strong> Every single result is included. No sneaky outcomes hiding in the corners!</li>
+                <li><strong>Outcomes are Mutually Exclusive:</strong> Only one outcome can happen at a time. You can't get Heads AND Tails on a single coin flip (unless that coin is *really* confused).</li>
+            </ul>
+
+            <h3>Examples to Ponder:</h3>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Flipping a Fair Coin Once:</strong>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {H, T}</p>
+                </li>
+                <li><strong>Rolling a Standard Six-Sided Die Once:</strong>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {1, 2, 3, 4, 5, 6}</p>
+                </li>
+                <li><strong>Tossing Two Coins:</strong>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {HH, HT, TH, TT}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (HH = Both Heads, HT = First Head Second Tail, etc.)
+                    </p>
+                </li>
+                <li><strong>Drawing a Single Card from a 52-card Deck:</strong>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {all 52 individual cards}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (Yes, that's a lot of possibilities! Good luck listing them all!)
+                    </p>
+                </li>
+            </ul>
+            <p class="text-lg mt-4">
+                Understanding the sample space is the first crucial step in calculating probabilities. If you don't know all the possibilities, how can you know the likelihood of a specific one? It's like trying to find a needle in a haystack without knowing how big the haystack is!
+            </p>
+            <div class="fun-fact">
+                <p><strong>Did You Know?</strong> The concept of sample space is so fundamental, it's like the ultimate "choose your own adventure" book for mathematicians, but instead of choosing, you list *all* possible endings!</p>
+            </div>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/f57f17/ffffff?text=Universe+of+Possibilities" alt="Abstract representation of a vast set of possible outcomes.">
+            </div>
+        </section>
+
+        <!-- Types of Sample Spaces -->
+        <section class="section">
+            <h2><span class="animated-underline">Types of Sample Spaces: Discrete vs. Continuous</span> 📏</h2>
+            <p class="text-lg">
+                Just like there are different types of snacks (crunchy vs. chewy),
+                there are different types of sample spaces!
+            </p>
+
+            <h3>Discrete Sample Space: The Listable Kind! 📝</h3>
+            <p class="text-lg">
+                If you can list out all the outcomes, even if the list goes on forever
+                (like counting stars, theoretically!), then it's a discrete sample space.
+                These outcomes are distinct and separate.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Finite:</strong> A limited number of outcomes.
+                    <ul>
+                        <li>Flipping a coin: {H, T}</li>
+                        <li>Rolling a die: {1, 2, 3, 4, 5, 6}</li>
+                    </ul>
+                </li>
+                <li><strong>Countably Infinite:</strong> An endless number of outcomes, but you can still count them one by one.
+                    <ul>
+                        <li>Number of cars passing a point until the first red car appears: {1, 2, 3, ...} (Could be 1, could be 100, could be a million! But you can count them one by one.)</li>
+                        <li>Number of flips until you get heads for the first time: {1, 2, 3, ...}</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="fun-fact">
+                <p><strong>Funny Analogy:</strong> Discrete sample spaces are like counting your socks. You might have a lot, but you can always count them. Continuous ones are like counting individual water molecules in a pool – good luck with that!</p>
+            </div>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/ffb300/ffffff?text=Discrete+Counting" alt="Illustration of countable items, such as a row of distinct numbers or fingers being counted.">
+            </div>
+
+            <h3>Continuous Sample Space: The Uncountably Infinite Kind! 🌊</h3>
+            <p class="text-lg">
+                These are for measurements, where outcomes can be any value within a range.
+                You can't list them all because there are infinitely many possibilities
+                between any two points! Think of a smooth, unbroken line.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Exact room temperature:</strong> S = {x | x ∈ ℝ, e.g., between 15°C and 30°C}
+                    <p class="text-sm text-gray-600 mt-1">
+                        (It could be 22.1°C, 22.15°C, 22.157°C... you get the idea! There's no "next" temperature after 22.1°C, only infinitely many closer ones.)
+                    </p>
+                </li>
+                <li><strong>Height of a person:</strong> Any real number within a typical range (e.g., [1.50m, 2.00m]).</li>
+                <li><strong>Lifespan of a light bulb:</strong> Any non-negative real number (e.g., [0, ∞) hours).</li>
+            </ul>
+            <div class="fun-fact">
+                <p><strong>Mind Bender:</strong> Trying to list all continuous outcomes is like trying to count all the grains of sand on all the beaches in the world. Good luck with that!</p>
+            </div>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/e3f2fd/1a73e8?text=Continuous+Measurements" alt="A thermometer with a continuous scale or a measuring tape.">
+            </div>
+        </section>
+
+        <!-- Real-Life Applications -->
+        <section class="section">
+            <h2><span class="animated-underline">Probability in Action: Where Does This Stuff Even Matter?</span> 🌍</h2>
+            <p class="text-lg">
+                Believe it or not, sample space and outcomes are super important
+                in the real world! They help smart people make smart decisions.
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Quality Control (Manufacturing):</strong>
+                    <p>Experiment: Inspecting an item.</p>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {Defective, Not Defective}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (Manufacturers use this to make sure your new phone isn't a dud!)
+                    </p>
+                </li>
+                <li><strong>Medical Diagnosis:</strong>
+                    <p>Experiment: Performing a medical test.</p>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {Positive, Negative}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (Doctors use this to figure out if you need more rest or a super pill!)
+                    </p>
+                </li>
+                <li><strong>Sports Analytics (Basketball Free Throw):</strong>
+                    <p>Outcomes: Score, Miss.</p>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {Score, Miss}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (Coaches use this to decide who takes the last shot! No pressure!)
+                    </p>
+                </li>
+                <li><strong>Weather Forecasting:</strong>
+                    <p>Outcomes: Sunny, Cloudy, Rainy, Snowy, etc.</p>
+                    <p class="font-mono bg-gray-100 p-2 rounded inline-block">S = {Sunny, Cloudy, Rainy, Snowy, ...}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        (Meteorologists use this to tell you whether to bring an umbrella or sunglasses!)
+                    </p>
+                </li>
+            </ul>
+            <p class="text-lg mt-4">
+                From predicting election results to designing safer cars, probability is the silent hero working behind the scenes!
+            </p>
+            <div class="fun-fact">
+                <p><strong>Ever Wondered?</strong> Why do weather forecasts always say "X% chance of rain"? That's probability helping you decide if you need an umbrella or just a really optimistic attitude!</p>
+            </div>
+            <div class="image-container">
+                <img src="https://placehold.co/600x350/4285f4/ffffff?text=Real+World+Applications" alt="A collage of icons representing manufacturing, medicine, sports, and weather.">
+            </div>
+        </section>
+
+        <!-- Test Your Knowledge Section - Sample Space Problems -->
+        <section class="section problem-section">
+            <h2><span class="animated-underline">Test Your Knowledge: Are You a Sample Space Pro?</span> 🧠</h2>
+            <p class="text-lg">
+                Time to flex those brain muscles! Let's see if you can identify the sample spaces for these scenarios.
+                Click "Show Solution" to reveal the step-by-step answer.
+            </p>
+
+            <h3>Discrete Sample Space Problems</h3>
+
+            <h4>Problem D1: The Marvelous Marbles 🔴🔵</h4>
+            <p class="text-lg">
+                A bag contains 2 red (R) and 2 blue (B) marbles. You draw two marbles
+                <span class="font-bold">without replacement</span>, noting the color of each marble in the order they are drawn.
+                What is the sample space for the sequence of colors drawn?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionD1">Show Solution</button>
+                <div id="solutionD1" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution D1: The Marvelous Marbles</p>
+                        <p><strong>Concept Used:</strong> Identifying Sample Space, Permutations (ordered outcomes without replacement).</p>
+                        <p><strong>Step 1: Determine the possible outcomes for the first draw.</strong></p>
+                        <p>You can draw either a Red (R) or a Blue (B) marble.</p>
+                        <p><strong>Step 2: Determine the possible outcomes for the second draw, considering the first draw and 'without replacement'.</strong></p>
+                        <ul class="list-disc ml-6">
+                            <li>If the first draw was Red (R): Now there's 1 Red and 2 Blue marbles left. The second draw can be Red or Blue. This gives us sequences: RR, RB.</li>
+                            <li>If the first draw was Blue (B): Now there are 2 Red and 1 Blue marbles left. The second draw can be Red or Blue. This gives us sequences: BR, BB.</li>
+                        </ul>
+                        <p><strong>Step 3: List all distinct possible sequences.</strong></p>
+                        <p>Combining all distinct possibilities from Step 2, the sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = {RR, RB, BR, BB}</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>A **Discrete Sample Space** has outcomes that are finite or countably infinite. Here, we have a finite number of distinct sequences.</p>
+                        <p>When drawing **without replacement**, the available options change after each draw, affecting subsequent outcomes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem D2: Coin Flip & Die Roll Combo 🪙🎲</h4>
+            <p class="text-lg">
+                You flip a coin, and then you roll a standard six-sided die.
+                What is the sample space for the combined outcomes?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionD2">Show Solution</button>
+                <div id="solutionD2" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution D2: Coin Flip & Die Roll Combo</p>
+                        <p><strong>Concept Used:</strong> Identifying Sample Space for Compound Events (using the Multiplication Principle).</p>
+                        <p><strong>Step 1: Identify the outcomes for each individual experiment.</strong></p>
+                        <ul class="list-disc ml-6">
+                            <li>Coin Outcomes: Heads (H), Tails (T)</li>
+                            <li>Die Outcomes: 1, 2, 3, 4, 5, 6</li>
+                        </ul>
+                        <p><strong>Step 2: Combine the outcomes from each experiment to form ordered pairs.</strong></p>
+                        <p>For each coin outcome, we pair it with each die outcome:</p>
+                        <ul class="list-disc ml-6">
+                            <li>If the coin is Heads (H): H1, H2, H3, H4, H5, H6</li>
+                            <li>If the coin is Tails (T): T1, T2, T3, T4, T5, T6</li>
+                        </ul>
+                        <p><strong>Step 3: List all distinct possible combined outcomes.</strong></p>
+                        <p>Combining all distinct possibilities, the sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = {H1, H2, H3, H4, H5, H6, T1, T2, T3, T4, T5, T6}</p>
+                        <p>The size of this sample space is 2 x 6 = 12 outcomes.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>A **Sample Space** is the set of all possible outcomes. For **compound experiments** (multiple simple experiments), you multiply the number of outcomes of each simple experiment to find the total number of outcomes in the sample space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem D3: Three Coin Tosses 🪙🪙🪙</h4>
+            <p class="text-lg">
+                You toss three fair coins. What is the sample space for the sequence of Heads (H) and Tails (T)?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionD3">Show Solution</button>
+                <div id="solutionD3" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution D3: Three Coin Tosses</p>
+                        <p><strong>Concept Used:</strong> Identifying Sample Space for Repeated Trials (Multiplication Principle).</p>
+                        <p><strong>Step 1: Determine the number of outcomes for a single coin toss.</strong></p>
+                        <p>For each coin, there are 2 outcomes (H or T).</p>
+                        <p><strong>Step 2: Calculate the total number of outcomes for three coin tosses.</strong></p>
+                        <p>Since there are 3 coins, the total number of outcomes is 2 x 2 x 2 = 8.</p>
+                        <p><strong>Step 3: List all distinct possible sequences.</strong></p>
+                        <p>Let's list them systematically:</p>
+                        <ul class="list-disc ml-6">
+                            <li>HHH (All Heads)</li>
+                            <li>HHT (Two Heads, one Tail)</li>
+                            <li>HTH</li>
+                            <li>THH</li>
+                            <li>HTT (One Head, two Tails)</li>
+                            <li>THT</li>
+                            <li>TTH</li>
+                            <li>TTT (All Tails)</li>
+                        </ul>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT}</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>The **Sample Space** must include every possible distinct outcome. For multiple independent trials, the total number of outcomes is the product of the number of outcomes for each trial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem D4: Drawing from a Deck (Color) ❤️🖤</h4>
+            <p class="text-lg">
+                You draw a single card from a standard 52-card deck. What is the sample space for the color of the card?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionD4">Show Solution</button>
+                <div id="solutionD4" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution D4: Drawing from a Deck (Color)</p>
+                        <p><strong>Concept Used:</strong> Identifying Sample Space (focusing on the specified characteristic).</p>
+                        <p><strong>Step 1: Identify the characteristic being observed.</strong></p>
+                        <p>The problem asks for the sample space of the *color* of the card.</p>
+                        <p><strong>Step 2: List all distinct possible colors in a standard deck.</strong></p>
+                        <p>A standard 52-card deck has two primary colors:</p>
+                        <ul class="list-disc ml-6">
+                            <li>Red (R) - includes Hearts and Diamonds suits.</li>
+                            <li>Black (B) - includes Clubs and Spades suits.</li>
+                        </ul>
+                        <p><strong>Step 3: Form the sample space based on these distinct colors.</strong></p>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = {Red, Black}</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>The **Sample Space** should only contain the distinct outcomes relevant to the experiment's observation. Even though there are 52 cards, if we only care about color, there are only two distinct outcomes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Continuous Sample Space Problems</h3>
+
+            <h4>Problem C1: The Everlasting Battery 🔋</h4>
+            <p class="text-lg">
+                The lifespan of a certain brand of smartphone battery is measured in hours.
+                It is known to last between 1000 and 2000 hours, inclusive.
+                What is the sample space for the battery's lifespan?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC1">Show Solution</button>
+                <div id="solutionC1" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C1: The Everlasting Battery</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Lifespan is a measurement (time) that can take any value within a range. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The battery is known to last between 1000 and 2000 hours, *inclusive* (meaning 1000 and 2000 are also possible).</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>We represent continuous sample spaces using square brackets for inclusive ranges.</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [1000, 2000]</p>
+                        <p>This means the lifespan L can be any value such that 1000 &le; L &le; 2000.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>A **Continuous Sample Space** consists of uncountably infinite outcomes, typically representing measurements along a scale. They are usually expressed as intervals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem C2: The Perfect Cup of Water 💧</h4>
+            <p class="text-lg">
+                You are measuring the temperature of a cup of water, which is known to be
+                between 0°C and 100°C (inclusive).
+                What is the sample space for the water temperature?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC2">Show Solution</button>
+                <div id="solutionC2" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C2: The Perfect Cup of Water</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Temperature is a continuous measurement. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The temperature is between 0°C and 100°C, *inclusive*.</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>Using interval notation, the sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [0°C, 100°C]</p>
+                        <p>This means the temperature T can be any value such that 0 &le; T &le; 100.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>Continuous sample spaces are used when outcomes can take on any value within a range, not just specific, countable points.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem C3: Commute Time 🚗💨</h4>
+            <p class="text-lg">
+                The time it takes for a person to commute to work is observed. It typically
+                ranges from 20 minutes to 60 minutes.
+                What is the sample space for the commute time in minutes?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC3">Show Solution</button>
+                <div id="solutionC3" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C3: Commute Time</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Commute time is a measurement (time) that can take any value within a range. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The commute time ranges from 20 minutes to 60 minutes, inclusive.</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [20, 60]</p>
+                        <p>This means the commute time T_commute can be any value such that 20 &le; T_commute &le; 60.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>Measurements like time, distance, weight, and temperature almost always result in continuous sample spaces, as they can be infinitely precise within a given range.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem C4: Rainfall Amount 🌧️📏</h4>
+            <p class="text-lg">
+                The total amount of rainfall in a city over a month is measured in millimeters (mm).
+                Historically, it can range from 0 mm to 500 mm.
+                What is the sample space for the monthly rainfall?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC4">Show Solution</button>
+                <div id="solutionC4" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C4: Rainfall Amount</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Rainfall amount is a continuous measurement. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The rainfall can range from 0 mm to 500 mm, inclusive.</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [0, 500]</p>
+                        <p>This means the rainfall amount R can be any value such that 0 &le; R &le; 500.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>Any quantity that can be measured with arbitrary precision (e.g., 1.5mm, 1.57mm, 1.573mm) falls into a continuous sample space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem C5: Phone Call Duration 📞⏱️</h4>
+            <p class="text-lg">
+                The duration of a phone call (in minutes) is observed. It can last anywhere
+                from 0 minutes to 30 minutes. What is the sample space for the call duration?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC5">Show Solution</button>
+                <div id="solutionC5" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C5: Phone Call Duration</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Call duration is a measurement (time) that can take any value within a range. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The duration can last from 0 minutes to 30 minutes, inclusive.</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [0, 30]</p>
+                        <p>This means the call duration D can be any value such that 0 &le; D &le; 30.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>Even if we usually round call durations (e.g., to the nearest minute), the underlying theoretical sample space for time is continuous.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem C6: Battery Voltage ⚡️📊</h4>
+            <p class="text-lg">
+                The voltage output of a new battery is measured. It is expected to be
+                between 1.4 volts and 1.6 volts. What is the sample space for the voltage?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionC6">Show Solution</button>
+                <div id="solutionC6" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution C6: Battery Voltage</p>
+                        <p><strong>Concept Used:</strong> Defining Continuous Sample Space (Interval Notation).</p>
+                        <p><strong>Step 1: Identify the type of measurement.</strong></p>
+                        <p>Voltage is a continuous measurement. This indicates a **Continuous Sample Space**.</p>
+                        <p><strong>Step 2: Identify the lower and upper bounds of the measurement.</strong></p>
+                        <p>The voltage is expected to be between 1.4 volts and 1.6 volts, inclusive.</p>
+                        <p><strong>Step 3: Express the sample space using interval notation.</strong></p>
+                        <p>The sample space is:</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">S = [1.4, 1.6]</p>
+                        <p>This means the voltage V can be any value such that 1.4 &le; V &le; 1.6.</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>Any physical quantity that can be measured along a scale (like voltage, current, resistance) will have a continuous sample space.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Find the Probability Section -->
+        <section class="section problem-section">
+            <h2><span class="animated-underline">Find the Probability!</span> 🎲🎯</h2>
+            <p class="text-lg">
+                Now that you're a sample space expert, let's calculate some probabilities!
+                Remember, Probability (Event) = (Number of favorable outcomes) / (Total number of outcomes in sample space).
+            </p>
+
+            <h3>Discrete Probability Problems</h3>
+
+            <h4>Problem P1: Rolling a Specific Number</h4>
+            <p class="text-lg">
+                What is the probability of rolling an even number when rolling a fair six-sided die once?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP1">Show Solution</button>
+                <div id="solutionP1" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P1: Rolling a Specific Number</p>
+                        <p><strong>Concept Used:</strong> Basic Probability Formula, Identifying Sample Space, Defining Event.</p>
+                        <p><strong>Step 1: Identify the Sample Space (S) and its size.</strong></p>
+                        <p>When rolling a fair six-sided die, the possible outcomes are {1, 2, 3, 4, 5, 6}.</p>
+                        <p>So, the total number of outcomes, |S| = 6.</p>
+                        <p><strong>Step 2: Identify the Event (E) and its size.</strong></p>
+                        <p>The event is "rolling an even number." The even numbers in our sample space are {2, 4, 6}.</p>
+                        <p>So, the number of favorable outcomes, |E| = 3.</p>
+                        <p><strong>Step 3: Calculate the Probability using the formula.</strong></p>
+                        <p>Probability P(E) = (Number of favorable outcomes) / (Total number of outcomes) = |E| / |S|</p>
+                        <p>P(rolling an even number) = 3/6 = 1/2</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 1/2 or 0.5</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>The **Probability** of an event is the ratio of the number of ways that event can occur to the total number of equally likely outcomes in the sample space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem P2: Drawing a Red Card</h4>
+            <p class="text-lg">
+                What is the probability of drawing a red card from a standard 52-card deck?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP2">Show Solution</button>
+                <div id="solutionP2" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P2: Drawing a Red Card</p>
+                        <p><strong>Concept Used:</strong> Basic Probability Formula, Identifying Sample Space, Defining Event.</p>
+                        <p><strong>Step 1: Identify the Sample Space (S) and its size.</strong></p>
+                        <p>A standard deck has 52 cards.</p>
+                        <p>So, the total number of outcomes, |S| = 52.</p>
+                        <p><strong>Step 2: Identify the Event (E) and its size.</strong></p>
+                        <p>The event is "drawing a red card." There are 2 suits of red cards (Hearts and Diamonds), and each suit has 13 cards.</p>
+                        <p>So, the number of red cards = 13 (Hearts) + 13 (Diamonds) = 26.</p>
+                        <p>The number of favorable outcomes, |E| = 26.</p>
+                        <p><strong>Step 3: Calculate the Probability using the formula.</strong></p>
+                        <p>P(drawing a red card) = 26/52 = 1/2</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 1/2 or 0.5</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>An **Event** is a subset of the sample space. To calculate its probability, you need to count how many outcomes within the sample space satisfy the event's condition.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem P3: Two Dice Sum (Advanced Discrete)</h4>
+            <p class="text-lg">
+                When rolling two fair six-sided dice, what is the probability that the sum of the numbers rolled is 7?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP3">Show Solution</button>
+                <div id="solutionP3" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P3: Two Dice Sum</p>
+                        <p><strong>Concept Used:</strong> Basic Probability Formula, Identifying Sample Space for Compound Events, Defining Event.</p>
+                        <p><strong>Step 1: Identify the Sample Space (S) and its size.</strong></p>
+                        <p>When rolling two dice, each die has 6 outcomes. The total number of outcomes is 6 x 6 = 36.</p>
+                        <p>Each outcome is an ordered pair (Die1, Die2).</p>
+                        <p>Example outcomes: (1,1), (1,2), ..., (6,6).</p>
+                        <p>So, |S| = 36.</p>
+                        <p><strong>Step 2: Identify the Event (E) and its size.</strong></p>
+                        <p>The event is "the sum of the numbers rolled is 7." Let's list the pairs that sum to 7:</p>
+                        <ul class="list-disc ml-6">
+                            <li>(1, 6)</li>
+                            <li>(2, 5)</li>
+                            <li>(3, 4)</li>
+                            <li>(4, 3)</li>
+                            <li>(5, 2)</li>
+                            <li>(6, 1)</li>
+                        </ul>
+                        <p>So, the number of favorable outcomes, |E| = 6.</p>
+                        <p><strong>Step 3: Calculate the Probability using the formula.</strong></p>
+                        <p>P(sum is 7) = |E| / |S| = 6/36 = 1/6</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 1/6</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>For experiments with multiple independent actions (like rolling two dice), the sample space consists of all possible combinations of outcomes from each action. Listing these systematically is crucial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem P4: Picking Marbles (Advanced Discrete)</h4>
+            <p class="text-lg">
+                A bag contains 5 red marbles and 3 blue marbles. If you draw two marbles
+                <span class="font-bold">without replacement</span>, what is the probability that both marbles are red?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP4">Show Solution</button>
+                <div id="solutionP4" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P4: Picking Marbles</p>
+                        <p><strong>Concept Used:</strong> Probability of Dependent Events, Combinations (for sample space and event).</p>
+                        <p><strong>Step 1: Identify the Total Number of Ways to Draw 2 Marbles (Sample Space Size).</strong></p>
+                        <p>Total marbles = 5 (Red) + 3 (Blue) = 8 marbles.</p>
+                        <p>The number of ways to choose 2 marbles from 8 without replacement (order doesn't matter for the total set of outcomes for this type of probability, we use combinations):</p>
+                        <p>Total combinations = C(8, 2) = 8! / (2!(8-2)!) = (8 x 7) / (2 x 1) = 28.</p>
+                        <p>So, |S| = 28.</p>
+                        <p><strong>Step 2: Identify the Number of Ways to Draw 2 Red Marbles (Favorable Outcomes).</strong></p>
+                        <p>We want both marbles to be red. There are 5 red marbles.</p>
+                        <p>The number of ways to choose 2 red marbles from 5:</p>
+                        <p>Favorable combinations = C(5, 2) = 5! / (2!(5-2)!) = (5 x 4) / (2 x 1) = 10.</p>
+                        <p>So, |E| = 10.</p>
+                        <p><strong>Step 3: Calculate the Probability.</strong></p>
+                        <p>P(both red) = |E| / |S| = 10/28 = 5/14</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 5/14</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>When dealing with selections **without replacement** where the order doesn't matter for the overall outcome (like picking a "hand" of cards/marbles), combinations (C(n, k)) are often used to determine the sizes of the sample space and the event.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Continuous Probability Problems</h3>
+            <p class="text-lg">
+                For continuous probability, we often talk about the probability of an outcome falling within a certain range. If the sample space is a continuous interval [a, b] and the event is a sub-interval [c, d] within it, the probability is usually calculated as:
+                P(Event) = (Length of Event Interval) / (Length of Sample Space Interval) = (d-c) / (b-a)
+            </p>
+
+            <h4>Problem P5: Bus Arrival Time</h4>
+            <p class="text-lg">
+                A bus arrives at a stop every 15 minutes. If you arrive at the stop randomly,
+                what is the probability that you will have to wait less than 5 minutes for the bus?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP5">Show Solution</button>
+                <div id="solutionP5" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P5: Bus Arrival Time</p>
+                        <p><strong>Concept Used:</strong> Probability for Uniform Continuous Distribution, Defining Sample Space and Event Intervals.</p>
+                        <p><strong>Step 1: Define the Sample Space (S) as a continuous interval.</strong></p>
+                        <p>Since the bus arrives every 15 minutes and you arrive randomly, your waiting time can be anywhere from 0 minutes to 15 minutes.</p>
+                        <p>Sample Space S = [0, 15] minutes.</p>
+                        <p>Length of Sample Space Interval = 15 - 0 = 15 minutes.</p>
+                        <p><strong>Step 2: Define the Event (E) as a continuous sub-interval.</strong></p>
+                        <p>The event is "waiting less than 5 minutes." This means your waiting time is between 0 and 5 minutes (exclusive of 5, but for continuous distributions, endpoints don't affect probability).</p>
+                        <p>Event E = [0, 5) minutes.</p>
+                        <p>Length of Event Interval = 5 - 0 = 5 minutes.</p>
+                        <p><strong>Step 3: Calculate the Probability using the ratio of lengths.</strong></p>
+                        <p>P(E) = (Length of Event Interval) / (Length of Sample Space Interval)</p>
+                        <p>P(wait less than 5 minutes) = 5/15 = 1/3</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 1/3</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>For **Uniform Continuous Distributions**, the probability of an outcome falling within a sub-interval is proportional to the length of that sub-interval relative to the total length of the sample space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Problem P6: Light Bulb Lifespan</h4>
+            <p class="text-lg">
+                The lifespan of a certain type of light bulb is uniformly distributed between 1000 and 1200 hours.
+                What is the probability that a randomly chosen bulb will last between 1050 and 1150 hours?
+            </p>
+            <div class="interactive-box">
+                <button class="button-primary show-solution-btn" data-target="solutionP6">Show Solution</button>
+                <div id="solutionP6" class="solution-box">
+                    <div class="solution-content">
+                        <p class="font-bold">Solution P6: Light Bulb Lifespan</p>
+                        <p><strong>Concept Used:</strong> Probability for Uniform Continuous Distribution, Defining Sample Space and Event Intervals.</p>
+                        <p><strong>Step 1: Define the Sample Space (S) as a continuous interval.</strong></p>
+                        <p>The total possible lifespan is between 1000 and 1200 hours.</p>
+                        <p>Sample Space S = [1000, 1200] hours.</p>
+                        <p>Length of Sample Space Interval = 1200 - 1000 = 200 hours.</p>
+                        <p><strong>Step 2: Define the Event (E) as a continuous sub-interval.</strong></p>
+                        <p>The event is "bulb lasts between 1050 and 1150 hours."</p>
+                        <p>Event E = [1050, 1150] hours.</p>
+                        <p>Length of Event Interval = 1150 - 1050 = 100 hours.</p>
+                        <p><strong>Step 3: Calculate the Probability using the ratio of lengths.</strong></p>
+                        <p>P(E) = (Length of Event Interval) / (Length of Sample Space Interval)</p>
+                        <p>P(lifespan between 1050 and 1150) = 100/200 = 1/2</p>
+                        <p class="font-mono bg-gray-200 p-2 rounded inline-block">Probability = 1/2 or 0.5</p>
+                        <p class="font-bold mt-4">Revision Corner:</p>
+                        <p>In continuous probability, the probability of a specific point is 0. We always calculate the probability of an outcome falling within a range or interval.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- MCQ Section -->
+        <section class="section problem-section">
+            <h2><span class="animated-underline">Multiple Choice Mania!</span> 🤔✅</h2>
+            <p class="text-lg">
+                Choose the best answer for each question.
+            </p>
+
+            <div class="mb-8">
+                <h4>MCQ 1: What is the sample space for the number of heads when flipping a coin four times?</h4>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq1_a" name="mcq1" value="a">
+                    <label for="mcq1_a">a) {0, 1, 2, 3, 4}</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq1_b" name="mcq1" value="b">
+                    <label for="mcq1_b">b) {H, T}</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq1_c" name="mcq1" value="c">
+                    <label for="mcq1_c">c) {HHHH, HHHT, ..., TTTT}</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq1_d" name="mcq1" value="d">
+                    <label for="mcq1_d">d) {1, 2, 3, 4}</label>
+                </div>
+                <button class="button-primary check-mcq-btn" data-question="mcq1" data-answer="a"
+                        data-correct-explanation="The question asks for the *number* of heads, not the sequence of coin flips. When flipping a coin four times, you can get 0, 1, 2, 3, or 4 heads.
+                        Revision: A sample space is the set of all possible outcomes of an experiment. For 'number of heads', the outcomes are counts."
+                        data-incorrect-explanation-b="This is the sample space for a single coin flip, not four.
+                        Revision: The sample space for four flips would list all 16 possible sequences (e.g., HHHH, HHHT, etc.), but the question specifically asks for the *number* of heads.">Check Answer</button>
+                <p id="mcq1-feedback" class="mcq-feedback"></p>
+            </div>
+
+            <div class="mb-8">
+                <h4>MCQ 2: Which of the following is an example of a continuous sample space?</h4>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq2_a" name="mcq2" value="a">
+                    <label for="mcq2_a">a) The number of students in a classroom.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq2_b" name="mcq2" value="b">
+                    <label for="mcq2_b">b) The outcome of rolling a die.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq2_c" name="mcq2" value="c">
+                    <label for="mcq2_c">c) The exact weight of a newborn baby.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq2_d" name="mcq2" value="d">
+                    <label for="mcq2_d">d) The type of pet owned by a family (dog, cat, bird).</label>
+                </div>
+                <button class="button-primary check-mcq-btn" data-question="mcq2" data-answer="c"
+                        data-correct-explanation="Continuous sample spaces involve measurements that can take any value within a range. Weight is a continuous measurement.
+                        Revision: Discrete sample spaces have countable outcomes (like number of students, die rolls, types of pets), while continuous sample spaces have uncountably infinite outcomes (like weight, height, temperature, time)."
+                        data-incorrect-explanation-a="The number of students is a discrete, countable value.
+                        Revision: Discrete sample spaces consist of distinct, separate values that can be counted.">Check Answer</button>
+                <p id="mcq2-feedback" class="mcq-feedback"></p>
+            </div>
+
+            <div class="mb-8">
+                <h4>MCQ 3: What is an "outcome" in probability?</h4>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq3_a" name="mcq3" value="a">
+                    <label for="mcq3_a">a) The set of all possible results of an experiment.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq3_b" name="mcq3" value="b">
+                    <label for="mcq3_b">b) A single, specific result of an experiment.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq3_c" name="mcq3" value="c">
+                    <label for="mcq3_c">c) The process of performing an experiment.</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq3_d" name="mcq3" value="d">
+                    <label for="mcq3_d">d) The likelihood of an event occurring.</label>
+                </div>
+                <button class="button-primary check-mcq-btn" data-question="mcq3" data-answer="b"
+                        data-correct-explanation="An outcome is indeed a single, specific result. For example, when flipping a coin, 'Heads' is an outcome.
+                        Revision: The set of all possible results is the 'sample space'. The process is an 'experiment'. The likelihood is 'probability'."
+                        data-incorrect-explanation-a="This describes the sample space, not an individual outcome.
+                        Revision: The sample space is the collection of all possible outcomes.">Check Answer</button>
+                <p id="mcq3-feedback" class="mcq-feedback"></p>
+            </div>
+
+            <div class="mb-8">
+                <h4>MCQ 4: If an experiment involves choosing a random integer between 1 and 100 (inclusive), what type of sample space is this?</h4>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq4_a" name="mcq4" value="a">
+                    <label for="mcq4_a">a) Continuous</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq4_b" name="mcq4" value="b">
+                    <label for="mcq4_b">b) Infinite</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq4_c" name="mcq4" value="c">
+                    <label for="mcq4_c">c) Countably Infinite</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq4_d" name="mcq4" value="d">
+                    <label for="mcq4_d">d) Discrete and Finite</label>
+                </div>
+                <button class="button-primary check-mcq-btn" data-question="mcq4" data-answer="d"
+                        data-correct-explanation="Integers are discrete values, and choosing between 1 and 100 makes the set finite (you can count exactly 100 outcomes).
+                        Revision: Continuous sample spaces involve measurements (like real numbers in a range). Infinite means endless. Countably infinite means endless but listable (like all positive integers). Finite means a limited, countable number of outcomes."
+                        data-incorrect-explanation-a="Integers are distinct, countable values, not continuous measurements.
+                        Revision: Continuous sample spaces are for measurements where values can be infinitely subdivided (e.g., exact temperature, height).">Check Answer</button>
+                <p id="mcq4-feedback" class="mcq-feedback"></p>
+            </div>
+
+            <div class="mb-8">
+                <h4>MCQ 5: Which characteristic describes a sample space where no two outcomes can occur simultaneously?</h4>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq5_a" name="mcq5" value="a">
+                    <label for="mcq5_a">a) Exhaustive</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq5_b" name="mcq5" value="b">
+                    <label for="mcq5_b">b) Countable</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq5_c" name="mcq5" value="c">
+                    <label for="mcq5_c">c) Mutually Exclusive</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="mcq5_d" name="mcq5" value="d">
+                    <label for="mcq5_d">d) Continuous</label>
+                </div>
+                <button class="button-primary check-mcq-btn" data-question="mcq5" data-answer="c"
+                        data-correct-explanation="Mutually exclusive outcomes mean that if one outcome occurs, no other outcome can occur at the same time in a single trial. For example, a coin cannot land on both heads and tails simultaneously.
+                        Revision: 'Exhaustive' means all possible outcomes are included. 'Countable' refers to discrete sample spaces. 'Continuous' refers to measurement-based sample spaces."
+                        data-incorrect-explanation-a="Exhaustive means all possibilities are included, not that they can't occur simultaneously.
+                        Revision: Exhaustive ensures the sample space covers every possible result, but doesn't restrict simultaneous occurrence if the experiment allows it (which a single trial usually doesn't).">Check Answer</button>
+                <p id="mcq5-feedback" class="mcq-feedback"></p>
+            </div>
+
+        </section>
+
+        <!-- Optimization and Animation Notes -->
+        <section class="section">
+            <h2><span class="animated-underline">Behind the Scenes: Optimization & Animation!</span> ✨</h2>
+            <p class="text-lg">
+                You might have noticed this page isn't just a bunch of boring text!
+                I've added some cool stuff to make it more engaging:
+            </p>
+            <ul class="list-disc ml-8 mt-4 text-lg">
+                <li><strong>Smooth Animations:</strong> Elements slide in and fade in
+                    to make the content flow nicely. I've tweaked the `slideInFromRight`
+                    animation to be a bit more noticeable.</li>
+                <li><strong>Interactive Buttons:</strong> The "Flip a Coin!" button
+                    and the problem checkers give you instant feedback. The "Show Solution"
+                    buttons now reveal detailed step-by-step explanations with a cool
+                    "blackboard and chalk" typing animation!</li>
+                <li><strong>Responsive Design:</strong> This page should look great
+                    on your phone, tablet, or super-wide desktop monitor! No horizontal scrolling allowed!</li>
+                <li><strong>Relevant Images:</strong> Images are now more closely related to the topics discussed.</li>
+                <li><strong>Tooltip Fun:</strong> Hover over certain words (like <span class="tooltip">"uncertainty"<span class="tooltiptext">The state of being unsure or not definite.</span></span>) to see a little extra info!</li>
+            </ul>
+            <div class="fun-fact">
+                <p><strong>Developer's Secret:</strong> Making things look pretty and run fast is half the fun of building webpages! It's like adding sprinkles to a delicious cake!</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 text-gray-600">
+            <p>&copy; 2025 Probability Party. Designed with ❤️ by Sudarshan Das.</p>
+            <p class="text-sm mt-2">
+                Special thanks to my Math Teacher, <span class="font-bold text-blue-700">Dr. Vrinda Vijayini Mam</span>, for giving me this wonderful opportunity!
+            </p>
+            <p class="text-sm mt-2">
+                And thanks to the amazing world of mathematics for making this possible!
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Ensure the DOM is fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Experiment Toggle
+            const showCoinFlipButton = document.getElementById('showCoinFlip');
+            const showDiceRollButton = document.getElementById('showDiceRoll');
+            const showCardDrawButton = document.getElementById('showCardDraw'); // New button
+            const coinFlipSection = document.getElementById('coinFlipSection');
+            const diceRollSection = document.getElementById('diceRollSection');
+            const cardDrawSection = document.getElementById('cardDrawSection'); // New section
+
+            // Function to hide all experiment sub-sections
+            function hideAllExperimentSections() {
+                coinFlipSection.classList.add('hidden');
+                diceRollSection.classList.add('hidden');
+                cardDrawSection.classList.add('hidden');
+            }
+
+            if (showCoinFlipButton && showDiceRollButton && showCardDrawButton && coinFlipSection && diceRollSection && cardDrawSection) {
+                showCoinFlipButton.addEventListener('click', () => {
+                    hideAllExperimentSections();
+                    coinFlipSection.classList.remove('hidden');
+                });
+
+                showDiceRollButton.addEventListener('click', () => {
+                    hideAllExperimentSections();
+                    diceRollSection.classList.remove('hidden');
+                });
+
+                showCardDrawButton.addEventListener('click', () => { // New event listener
+                    hideAllExperimentSections();
+                    cardDrawSection.classList.remove('hidden');
+                });
+            }
+
+            // Coin Flip Experiment
+            const flipCoinsButton = document.getElementById('flipCoinsButton');
+            const numCoinsInput = document.getElementById('numCoins');
+            const coinFlipResultsDiv = document.getElementById('coinFlipResults');
+            const totalOutcomeP = document.getElementById('totalOutcome');
+
+            if (flipCoinsButton && numCoinsInput && coinFlipResultsDiv && totalOutcomeP) {
+                flipCoinsButton.addEventListener('click', function() {
+                    const numCoins = parseInt(numCoinsInput.value);
+                    if (isNaN(numCoins) || numCoins < 1 || numCoins > 10) {
+                        coinFlipResultsDiv.textContent = "Please enter a number between 1 and 10.";
+                        totalOutcomeP.textContent = "";
+                        return;
+                    }
+
+                    coinFlipResultsDiv.innerHTML = ''; // Clear previous results
+                    totalOutcomeP.textContent = '';
+                    let outcomes = [];
+                    let animationDelay = 0;
+
+                    for (let i = 0; i < numCoins; i++) {
+                        setTimeout(() => {
+                            const result = Math.random() < 0.5 ? 'H' : 'T';
+                            outcomes.push(result);
+
+                            const coinSpan = document.createElement('span');
+                            coinSpan.textContent = result === 'H' ? 'HEADS! 🪙 ' : 'TAILS! 🪙 ';
+                            coinSpan.style.opacity = '0';
+                            coinSpan.style.transition = 'opacity 0.5s ease-in-out';
+                            coinFlipResultsDiv.appendChild(coinSpan);
+
+                            // Trigger fade-in
+                            setTimeout(() => {
+                                coinSpan.style.opacity = '1';
+                            }, 10); // Small delay to ensure transition applies
+
+                            if (i === numCoins - 1) {
+                                // After all coins are flipped, display total outcome
+                                setTimeout(() => {
+                                    totalOutcomeP.textContent = `Total Sequence: ${outcomes.join('')}`;
+                                    totalOutcomeP.classList.add('fade-in-text');
+                                }, animationDelay + 500); // Wait a bit after last coin animation
+                            }
+                        }, animationDelay);
+                        animationDelay += 600; // Delay for each coin flip animation
+                    }
+                });
+            }
+
+            // Dice Roll Experiment
+            const rollDiceButton = document.getElementById('rollDiceButton');
+            const numDiceInput = document.getElementById('numDice');
+            const diceRollResultsDiv = document.getElementById('diceRollResults');
+            const diceTotalSumP = document.getElementById('diceTotalSum');
+            const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅']; // Unicode dice faces
+
+            if (rollDiceButton && numDiceInput && diceRollResultsDiv && diceTotalSumP) {
+                rollDiceButton.addEventListener('click', function() {
+                    const numDice = parseInt(numDiceInput.value);
+                    if (isNaN(numDice) || numDice < 1 || numDice > 5) {
+                        diceRollResultsDiv.textContent = "Please enter a number between 1 and 5.";
+                        diceTotalSumP.textContent = "";
+                        return;
+                    }
+
+                    diceRollResultsDiv.innerHTML = ''; // Clear previous results
+                    diceTotalSumP.textContent = '';
+                    let totalSum = 0;
+                    let animationDelay = 0;
+
+                    for (let i = 0; i < numDice; i++) {
+                        setTimeout(() => {
+                            const roll = Math.floor(Math.random() * 6) + 1; // 1 to 6
+                            totalSum += roll;
+
+                            const diceSpan = document.createElement('span');
+                            diceSpan.textContent = diceEmojis[roll - 1]; // Get emoji from array
+                            diceSpan.style.opacity = '0';
+                            diceSpan.style.transform = 'scale(0.5)';
+                            diceSpan.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                            diceRollResultsDiv.appendChild(diceSpan);
+
+                            // Trigger animation
+                            setTimeout(() => {
+                                diceSpan.style.opacity = '1';
+                                diceSpan.style.transform = 'scale(1)';
+                            }, 10);
+
+                            if (i === numDice - 1) {
+                                // After all dice are rolled, display total sum
+                                setTimeout(() => {
+                                    diceTotalSumP.textContent = `Total Sum: ${totalSum}`;
+                                    diceTotalSumP.classList.add('fade-in-text');
+                                }, animationDelay + 500);
+                            }
+                        }, animationDelay);
+                        animationDelay += 700; // Delay for each dice roll animation
+                    }
+                });
+            }
+
+            // Card Draw Experiment
+            const drawCardButton = document.getElementById('drawCardButton');
+            const resetDeckButton = document.getElementById('resetDeckButton');
+            const drawnCardResultDiv = document.getElementById('drawnCardResult');
+            const remainingCardsP = document.getElementById('remainingCards');
+
+            const ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
+            const suits = ['Hearts ❤️', 'Diamonds ♦️', 'Clubs ♣️', 'Spades ♠️'];
+            let deck = [];
+
+            function initializeDeck() {
+                deck = [];
+                for (const suit of suits) {
+                    for (const rank of ranks) {
+                        deck.push(`${rank} of ${suit}`);
+                    }
+                }
+                shuffleDeck();
+            }
+
+            function shuffleDeck() {
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]]; // Swap
+                }
+            }
+
+            if (drawCardButton && resetDeckButton && drawnCardResultDiv && remainingCardsP) {
+                initializeDeck(); // Initialize deck on load
+                remainingCardsP.textContent = `Cards remaining: ${deck.length}`;
+
+                drawCardButton.addEventListener('click', function() {
+                    if (deck.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * deck.length);
+                        const drawnCard = deck.splice(randomIndex, 1)[0]; // Remove and get card
+
+                        drawnCardResultDiv.textContent = `You drew: ${drawnCard}`;
+                        drawnCardResultDiv.classList.add('fade-in-text');
+                        setTimeout(() => drawnCardResultDiv.classList.remove('fade-in-text'), 1000);
+
+                        remainingCardsP.textContent = `Cards remaining: ${deck.length}`;
+                    } else {
+                        drawnCardResultDiv.textContent = "Deck is empty! Reset to play again.";
+                        remainingCardsP.textContent = "No cards left.";
+                    }
+                });
+
+                resetDeckButton.addEventListener('click', function() {
+                    initializeDeck();
+                    drawnCardResultDiv.textContent = "Deck reset! Draw a card!";
+                    remainingCardsP.textContent = `Cards remaining: ${deck.length}`;
+                    drawnCardResultDiv.classList.remove('fade-in-text'); // Clear any lingering animation class
+                });
+            }
+
+
+            // Function to show solution content immediately
+            function showSolutionContent(solutionContentElement) {
+                // Make all children visible immediately
+                Array.from(solutionContentElement.children).forEach(child => {
+                    child.style.opacity = '1';
+                    child.style.width = 'auto'; // Ensure full width
+                    child.style.animation = 'none'; // Clear any previous animation
+                });
+            }
+
+            // Show/Hide Solutions for problems
+            document.querySelectorAll('.show-solution-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.dataset.target;
+                    const solutionBox = document.getElementById(targetId);
+                    const solutionContent = solutionBox ? solutionBox.querySelector('.solution-content') : null;
+
+                    if (solutionBox && solutionContent) {
+                        if (solutionBox.style.display === 'block') {
+                            solutionBox.style.display = 'none';
+                            this.textContent = 'Show Solution';
+                            // Reset content visibility when hidden
+                            Array.from(solutionContent.children).forEach(child => {
+                                child.style.opacity = '0';
+                            });
+                        } else {
+                            solutionBox.style.display = 'block';
+                            this.textContent = 'Hide Solution';
+                            // Show content immediately
+                            showSolutionContent(solutionContent);
+                        }
+                    }
+                });
+            });
+
+            // Observer to trigger section animations as they enter viewport
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // MCQ Logic
+            document.querySelectorAll('.check-mcq-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const questionName = this.dataset.question;
+                    const correctAnswer = this.dataset.answer;
+                    const feedbackElement = document.getElementById(`${questionName}-feedback`);
+                    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+
+                    // Clear previous feedback
+                    feedbackElement.textContent = '';
+                    feedbackElement.className = 'mcq-feedback'; // Reset classes
+
+                    if (selectedOption) {
+                        if (selectedOption.value === correctAnswer) {
+                            feedbackElement.textContent = `Correct! 🎉 ${button.dataset.correctExplanation || ''}`;
+                            feedbackElement.className = 'mcq-feedback text-green-600';
+                        } else {
+                            let explanation = `Incorrect. Your answer '${selectedOption.value.toUpperCase()}' is wrong.`;
+                            // Provide specific incorrect explanation if available for the selected option
+                            if (button.dataset[`incorrectExplanation${selectedOption.value.toUpperCase()}`]) {
+                                explanation += ` ${button.dataset[`incorrectExplanation${selectedOption.value.toUpperCase()}`]}`;
+                            } else {
+                                // Fallback for general incorrect feedback
+                                explanation += ` The correct answer is '${correctAnswer.toUpperCase()}'. ${button.dataset.correctExplanation || ''}`;
+                            }
+                            feedbackElement.textContent = explanation;
+                            feedbackElement.className = 'mcq-feedback text-red-600';
+                        }
+                    } else {
+                        feedbackElement.textContent = "Please select an answer.";
+                        feedbackElement.className = 'mcq-feedback text-yellow-600';
+                    }
+                });
+            });
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
